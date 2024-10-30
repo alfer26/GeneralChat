@@ -5,9 +5,76 @@
         <link rel="icon" href="./src/image/Messenger.svg" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>General Chat</title>
-        <script defer type="module" src="/script.js"></script>
+        <link rel="stylesheet" href="./src/CSS/style.css" />
+        <script defer type="module" src="./src/script.js"></script>
     </head>
     <body>
-        
+        <header>
+            <div class="title">
+                <img src="./src/image/logo.svg" alt="logo" width="100px" />
+                <h1>General Chat</h1>
+            </div>
+            <nav>
+                <button class="leaveChat">Leave The Chat</button>
+                <button class="usersList">
+                    <img src="./src/image/usersList.svg" alt="Users List" />
+                </button>
+            </nav>
+        </header>
+        <main>
+            <section class="chatWindow">f</section>
+            <section class="inputBox">
+                <form class="messageForm">
+                    <textarea name="Message" id="message"></textarea>
+                    <button id="sendMessage" type="submit"><img src="./src/image/sendMessage.svg" alt="Send Message"></button>
+                    <div id="scroll" style="display: none;">
+                        <div id="scrollThumb"></div>
+                    </div>
+                </form>
+            </section>
+        </main>
+        <aside class="usersList">
+            <h2>List of connected users</h2>
+            <div class="user">
+                <div class="username">
+                    <p>WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW</p>
+                    <div id="scroll" style="display: none;">
+                        <div id="scrollThumb"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="user">
+                <div class="username">
+                    <p>Wopper</p>
+                    <div id="scroll" style="display: none;">
+                        <div id="scrollThumb"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="user">
+                <div class="username">
+                    <p>WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW</p>
+                    <div id="scroll" style="display: none;">
+                        <div id="scrollThumb"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="user">
+                <div class="username">
+                    <p>WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW</p>
+                    <div id="scroll" style="display: none;">
+                        <div id="scrollThumb"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="user">
+                <div class="username">
+                    <p>WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW</p>
+                    <div id="scroll" style="display: none;">
+                        <div id="scrollThumb"></div>
+                    </div>
+                </div>
+            </div>
+        </aside>
     </body>
 </html>
