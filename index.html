@@ -14,7 +14,7 @@
                 <img src="./src/image/logo.svg" alt="logo" width="100px" />
                 <h1>General Chat</h1>
             </div>
-            <nav>
+            <nav style="display: none">
                 <button class="leaveChat">Leave The Chat</button>
                 <button class="usersList">
                     <img src="./src/image/usersList.svg" alt="Users List" />
@@ -22,59 +22,42 @@
             </nav>
         </header>
         <main>
-            <section class="chatWindow">f</section>
-            <section class="inputBox">
-                <form class="messageForm">
-                    <textarea name="Message" id="message"></textarea>
-                    <button id="sendMessage" type="submit"><img src="./src/image/sendMessage.svg" alt="Send Message"></button>
-                    <div id="scroll" style="display: none;">
-                        <div id="scrollThumb"></div>
-                    </div>
+            <div class="startWindow">
+                <h2>Welcome!</h2>
+                <form class="connectToChat">
+                    <label>
+                        <p>Your name:</p>
+                        <input id="usernameEnter" type="text"/>
+                    </label>
+                    <button type="submit" class="joinChat">
+                        Join the Chat
+                    </button>
                 </form>
-            </section>
+            </div>
+            <div class="generalChat" style="display: none">
+                <section class="chatWindow"></section>
+                <section class="inputBox">
+                    <form class="messageForm">
+                        <textarea
+                            name="Message"
+                            id="message"
+                            placeholder="Message"
+                        ></textarea>
+                        <button id="sendMessage" type="submit">
+                            <img
+                                src="./src/image/sendMessage.svg"
+                                alt="Send Message"
+                            />
+                        </button>
+                        <div id="scroll" style="display: none">
+                            <div id="scrollThumb"></div>
+                        </div>
+                    </form>
+                </section>
+            </div>
         </main>
-        <aside class="usersList">
+        <aside class="usersList" style="width: 0px">
             <h2>List of connected users</h2>
-            <div class="user">
-                <div class="username">
-                    <p>WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW</p>
-                    <div id="scroll" style="display: none;">
-                        <div id="scrollThumb"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="user">
-                <div class="username">
-                    <p>Wopper</p>
-                    <div id="scroll" style="display: none;">
-                        <div id="scrollThumb"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="user">
-                <div class="username">
-                    <p>WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW</p>
-                    <div id="scroll" style="display: none;">
-                        <div id="scrollThumb"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="user">
-                <div class="username">
-                    <p>WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW</p>
-                    <div id="scroll" style="display: none;">
-                        <div id="scrollThumb"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="user">
-                <div class="username">
-                    <p>WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW</p>
-                    <div id="scroll" style="display: none;">
-                        <div id="scrollThumb"></div>
-                    </div>
-                </div>
-            </div>
         </aside>
     </body>
 </html>
