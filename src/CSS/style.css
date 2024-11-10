@@ -196,6 +196,7 @@ section.messageBox {
     position: relative;
     align-self: flex-start;
     word-wrap: break-word;
+    display: grid;
     max-width: 80%;
     background-color: rgb(245, 245, 245);
     box-shadow: 3px 5px 8px rgba(0, 0, 0, 0.4);
@@ -205,6 +206,39 @@ section.messageBox {
     padding: 10px 23px 15px 23px;
     margin: 20px 20px 20px 25px;
 }
+section.messageBox::after {
+    position: absolute;
+    top: -1px;
+    left: -66px;
+    content: "";
+    width: 65px;
+    height: 25px;
+    border-radius: 0 25px 0 0;
+    box-shadow: 50px 0px 0 rgb(44, 44, 44);
+    z-index: -1;
+}
+section.messageBox > p.title {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    white-space: pre;
+}
+section.messageBox > p.message {
+    margin-top: 7px;
+    font-size: 25px;
+    white-space: break-spaces;
+    overflow-wrap: anywhere;
+}
+section.messageBox#yourMessage {
+    align-self: flex-end;
+}
+section.messageBox#yourMessage::after {
+    left: auto;
+    right: -66px;
+    border-radius: 25px 0 0 0;
+    box-shadow: -50px 0px 0 rgb(34, 34, 34);
+}
+
 div.notice {
     color: rgb(40, 40, 40);
     display: grid;
@@ -219,33 +253,6 @@ div.notice span {
     overflow: hidden;
     white-space: nowrap;
     white-space: pre;
-}
-
-
-section.messageBox::after {
-    position: absolute;
-    top: -1px;
-    left: -66px;
-    content: "";
-    width: 65px;
-    height: 25px;
-    border-radius: 0 25px 0 0;
-    box-shadow: 50px 0px 0 rgb(44, 44, 44);
-    z-index: -1;
-}
-p.message {
-    font-size: 25px;
-    white-space: break-spaces;
-    overflow-wrap: anywhere;
-}
-section.messageBox#yourMessage {
-    align-self: flex-end;
-}
-section.messageBox#yourMessage::after {
-    left: auto;
-    right: -66px;
-    border-radius: 25px 0 0 0;
-    box-shadow: -50px 0px 0 rgb(34, 34, 34);
 }
 
 section.inputBox > form {

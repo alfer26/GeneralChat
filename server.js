@@ -5,33 +5,41 @@ const wss = new WebSocketServer({ port: 8080 });
 let usersData = [];
 
 wss.on("connection", (ws) => {
-    let userData;
+    let userDataClient;
     ws.on("message", (messageData) => {
-        const { type, message } = JSON.parse(messageData);
+        const { type, message, userData } = JSON.parse(messageData);
         if (type === "join") {
-            userData = message;
-            console.log(`${userData.username} has connected`);
+            userDataClient = userData;
+            console.log(`${userDataClient.username} has connected`);
             const assignID = {
                 type: "assignID",
                 message: getID(),
             };
             ws.send(JSON.stringify(assignID));
-            userData.id = assignID.message;
-            usersData.push(userData);
+            userDataClient.id = assignID.message;
+            usersData.push(userDataClient);
             sendEveryone(JSON.stringify(JSON.parse(messageData)));
-            sendEveryone(JSON.stringify({type: 'usersList', message: usersData}));
+            sendEveryone(
+                JSON.stringify({ type: "usersList", message: usersData })
+            );
         }
-
+        if (type === "message") {
+            console.log(
+                `Пришло сообщение от ${userData.username}: '${message}'`
+            );
+            sendEveryone(JSON.stringify(JSON.parse(messageData)));
+        }
     });
     ws.on("close", () => {
         const messageData = {
             type: "leave",
-            message: userData,
+            message: userDataClient,
+            userData: userDataClient,
         };
-        usersData = usersData.filter((user) => user.id !== userData.id);
+        usersData = usersData.filter((user) => user.id !== userDataClient.id);
         sendEveryone(JSON.stringify(messageData));
-        sendEveryone(JSON.stringify({type: 'usersList', message: usersData}));
-        console.log(`${userData.username} has disconnected`);
+        sendEveryone(JSON.stringify({ type: "usersList", message: usersData }));
+        console.log(`${userDataClient.username} has disconnected`);
     });
 });
 

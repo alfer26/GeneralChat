@@ -5,6 +5,7 @@ const formConnectToWebsocket = document.querySelector("form.connectToChat");
 const nav = document.querySelector("nav");
 const startWindow = document.querySelector("div.startWindow");
 const buttonLeaveChat = document.querySelector("button.leaveChat");
+const buttonSendMessage = document.querySelector("button#sendMessage");
 const messageForm = document.querySelector("form.messageForm");
 const connectToChatForm = document.querySelector("form.connectToChat");
 const usernameEnter = document.querySelector("input#usernameEnter");
@@ -31,7 +32,42 @@ function joinChat(username) {
     };
     messageForm.querySelector("textarea").focus();
 
+    messageForm.onkeydown = keydown;
+    function keydown(e) {
+        if (e.key == "Enter" && !e.shiftKey) {
+            e.preventDefault();
+            sendMessage();
+        }
+    }
+    buttonSendMessage.onclick = sendMessage;
+
     buttonLeaveChat.onclick = leaveChat;
+
+    function sendMessage() {
+        if (!(+messageForm.querySelector("textarea").value == 0)) {
+            const messageData = {
+                type: "message",
+                message: messageForm.querySelector("textarea").value,
+                userData: yourData,
+            };
+            socket.send(JSON.stringify(messageData));
+            messageForm.querySelector("textarea").value = "";
+            messageForm.querySelector("textarea").focus();
+        } else {
+            messageForm.querySelector("textarea").focus();
+            messageForm.animate(
+                [
+                    { transform: "translate(0)" },
+                    { transform: "translate(9px)" },
+                    { transform: "translate(-9px)" },
+                    { transform: "translate(6px)" },
+                    { transform: "translate(-3px)" },
+                    { transform: "translate(0px)" },
+                ],
+                350
+            );
+        }
+    }
 
     function scrollForBoxUser() {
         setTimeout(() => {
@@ -153,21 +189,26 @@ function joinChat(username) {
         socket.onopen = () => {
             const messageData = {
                 type: "join",
-                message: yourData,
+                message: null,
+                userData: yourData,
             };
             socket.send(JSON.stringify(messageData));
             console.log("Соединение WebSocket установлено");
         };
 
         socket.onmessage = (messageData) => {
+            if (chatWindow.scrollTop == (chatWindow.scrollHeight - chatWindow.clientHeight)) {
+                setTimeout(() => {
+                    chatWindow.scrollTo(0, chatWindow.scrollHeight);
+                }, 1)
+            }
             const boxUsersList = document.querySelector("aside.usersList");
-            const { type, message } = JSON.parse(messageData.data);
-            console.log(message);
+            const { type, message, userData } = JSON.parse(messageData.data);
             if (type === "join") {
                 const notice = document.createElement("div");
                 notice.className = "notice";
                 notice.innerHTML = `
-                    <span class="username">${message.username}</span>
+                    <span class="username">${userData.username}</span>
                     <span> joined the chat</span>`;
                 chatWindow.appendChild(notice);
             }
@@ -193,11 +234,21 @@ function joinChat(username) {
                 }, "<h2>List of connected users</h2>");
                 boxUsersList.innerHTML = innerHTML;
             }
+            if (type === "message") {
+                const messageBox = document.createElement("section");
+                messageBox.className = "messageBox";
+                if (userData.id == yourData.id)
+                    messageBox.setAttribute("id", "yourMessage");
+                messageBox.innerHTML = `
+                        <p class="title" style="color: ${userData.color};">${userData.username}</p>
+                        <p class="message">${message}</p>`;
+                chatWindow.appendChild(messageBox);
+            }
             if (type === "leave") {
                 const notice = document.createElement("div");
                 notice.className = "notice";
                 notice.innerHTML = `
-                    <span class="username">${message.username}</span>
+                    <span class="username">${userData.username}</span>
                     <span> left the chat</span>`;
                 chatWindow.appendChild(notice);
             }
@@ -253,6 +304,7 @@ formConnectToWebsocket.addEventListener("submit", (e) => {
         const username = usernameEnter.value;
         joinChat(username);
     } else {
+        usernameEnter.focus();
         usernameEnter.animate(
             [
                 { transform: "translate(0)" },
@@ -268,10 +320,8 @@ formConnectToWebsocket.addEventListener("submit", (e) => {
 });
 
 function getRandomColor() {
-    var letters = "0123456789ABCDEF";
-    var color = "#";
-    for (var i = 0; i < 6; i++) {
-        color += letters[Math.floor(Math.random() * 16)];
-    }
-    return color;
+    const hue = Math.floor(Math.random() * 360);
+    const saturation = 100;
+    const lightness = 50;
+    return `hsl(${hue}, ${saturation}%, ${lightness}%)`;
 }
