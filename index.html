@@ -5,9 +5,59 @@
         <link rel="icon" href="./src/image/Messenger.svg" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>General Chat</title>
-        <script defer type="module" src="/script.js"></script>
+        <link rel="stylesheet" href="./src/CSS/style.css" />
+        <script defer type="module" src="./src/script.js"></script>
     </head>
     <body>
-        
+        <header>
+            <div class="title">
+                <img src="./src/image/logo.svg" alt="logo" width="100px" />
+                <h1>General Chat</h1>
+            </div>
+            <nav style="display: none">
+                <button class="leaveChat">Leave The Chat</button>
+                <button class="usersList">
+                    <img src="./src/image/usersList.svg" alt="Users List" />
+                </button>
+            </nav>
+        </header>
+        <main>
+            <div class="startWindow">
+                <h2>Welcome!</h2>
+                <form class="connectToChat">
+                    <label>
+                        <p>Your name:</p>
+                        <input id="usernameEnter" type="text" />
+                    </label>
+                    <button type="submit" class="joinChat">
+                        Join the Chat
+                    </button>
+                </form>
+            </div>
+            <div class="generalChat" style="display: none">
+                <section class="chatWindow"></section>
+                <section class="inputBox">
+                    <form class="messageForm">
+                        <textarea
+                            name="Message"
+                            id="message"
+                            placeholder="Message"
+                        ></textarea>
+                        <button id="sendMessage" type="submit">
+                            <img
+                                src="./src/image/sendMessage.svg"
+                                alt="Send Message"
+                            />
+                        </button>
+                        <div id="scroll" style="display: none">
+                            <div id="scrollThumb"></div>
+                        </div>
+                    </form>
+                </section>
+            </div>
+        </main>
+        <aside class="usersList" style="width: 0px">
+            <h2>List of connected users</h2>
+        </aside>
     </body>
 </html>
