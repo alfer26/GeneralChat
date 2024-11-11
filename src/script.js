@@ -197,10 +197,13 @@ function joinChat(username) {
         };
 
         socket.onmessage = (messageData) => {
-            if (chatWindow.scrollTop == (chatWindow.scrollHeight - chatWindow.clientHeight)) {
+            if (
+                chatWindow.scrollTop ==
+                chatWindow.scrollHeight - chatWindow.clientHeight
+            ) {
                 setTimeout(() => {
                     chatWindow.scrollTo(0, chatWindow.scrollHeight);
-                }, 1)
+                }, 1);
             }
             const boxUsersList = document.querySelector("aside.usersList");
             const { type, message, userData } = JSON.parse(messageData.data);
@@ -267,6 +270,10 @@ function joinChat(username) {
 
         socket.onerror = (error) => {
             console.error("Ошибка WebSocket:", error);
+            leaveChat();
+            setTimeout(() => {
+                document.querySelector("div.notice").remove();
+            }, 5);
         };
 
         return socket;

@@ -269,6 +269,7 @@ textarea#message {
     border-radius: 40px;
     margin: 10px;
     flex-grow: 1;
+    line-height: 30px;
     padding: 13px 80px 13px 14px;
     resize: none;
     width: 1px;
